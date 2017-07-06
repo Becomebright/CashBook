@@ -1,15 +1,19 @@
 package com.example.cashbook;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * Created by dsz62 on 2017/7/6.
@@ -18,7 +22,7 @@ import java.util.List;
 public class ChoiceAdapter extends RecyclerView.Adapter<ChoiceAdapter.ViewHolder> {
 
     private List<Choice> mChoiceList;
-    private EditText editText;
+    private EditText input_text;
 
     static public class ViewHolder extends RecyclerView.ViewHolder {
         View choiceView;
@@ -33,13 +37,13 @@ public class ChoiceAdapter extends RecyclerView.Adapter<ChoiceAdapter.ViewHolder
         }
     }
 
-    public ChoiceAdapter(List<Choice> choiceList){
+    public ChoiceAdapter(List<Choice> choiceList, EditText view){
         mChoiceList = choiceList;
+        this.input_text = view;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        editText = (EditText) parent.findViewById(R.id.input_text);
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.choice_item, parent, false);
         final ViewHolder holder = new ViewHolder(view);
         holder.choiceView.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +51,13 @@ public class ChoiceAdapter extends RecyclerView.Adapter<ChoiceAdapter.ViewHolder
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 Choice choice = mChoiceList.get(position);
-//                editText.setText(choice.getName());
+                input_text.setText(choice.getName()+"   ");
+
+                input_text.requestFocus();//输入框获取焦点
+                input_text.setSelection(input_text.getText().length());
+                InputMethodManager imm = (InputMethodManager)view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(input_text, 0);//是软键盘保持弹出状态
+
                 Toast.makeText(view.getContext(), "You clicked view " + choice.getName(), Toast.LENGTH_SHORT).show();
             }
         });

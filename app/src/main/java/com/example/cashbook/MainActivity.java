@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,15 +59,35 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView choiceView = (RecyclerView) findViewById(R.id.choice);
         GridLayoutManager layoutManager2 = new GridLayoutManager(this, 3);
         choiceView.setLayoutManager(layoutManager2);
-        ChoiceAdapter choiceAdapter = new ChoiceAdapter(choiceList);
+        ChoiceAdapter choiceAdapter = new ChoiceAdapter(choiceList, (EditText) findViewById(R.id.input_text));
         choiceView.setAdapter(choiceAdapter);
     }
 
     private void initChoices() {
-        for (int i=0; i<20; i++){
-            Choice food = new Choice("Food", R.drawable.timg);
-            choiceList.add(food);
-        }
+        //1
+        Choice choice = new Choice("一般", R.drawable.timg);
+        choiceList.add(choice);
+        //2
+        choice = new Choice("用餐", R.drawable.timg);
+        choiceList.add(choice);
+        //3
+        choice = new Choice("交通", R.drawable.timg);
+        choiceList.add(choice);
+        //4
+        choice = new Choice("水果", R.drawable.timg);
+        choiceList.add(choice);
+        //5
+        choice = new Choice("服饰", R.drawable.timg);
+        choiceList.add(choice);
+        //6
+        choice = new Choice("日用品", R.drawable.timg);
+        choiceList.add(choice);
+        //7
+        choice = new Choice("娱乐", R.drawable.timg);
+        choiceList.add(choice);
+        //8
+        choice = new Choice("零食", R.drawable.timg);
+        choiceList.add(choice);
     }
 
     private void initMsg() {

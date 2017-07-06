@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">CashBook</string>
-    <string name="edit_message">请输入\" 价格 \"</string>
+    <string name="edit_message">请先选择\" 种类 \", 再输入\" 价格 \"</string>
 </resources>
