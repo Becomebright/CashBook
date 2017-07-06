@@ -3,36 +3,55 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e3e6e8">
+    android:background="#e3e6e8" >
+    <!--android:paddingTop="?android:attr/actionBarSize"-->
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/msg_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="5" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/choice"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/linear_layout">
+
+   </android.support.v7.widget.RecyclerView>
 
     <LinearLayout
         android:layout_margin="5dp"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/linear_layout">
 
         <EditText
             android:id="@+id/input_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:hint="@string/edit_message"
             android:gravity="center"
             android:maxLines="2"
-            android:theme="@style/MyEditText"/>
+            android:theme="@style/MyEditText"
+            android:inputType="numberDecimal"
+            />
 
         <Button
             android:id="@+id/send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
             android:text="Send"
             android:textAllCaps="false"/>
 

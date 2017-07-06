@@ -2,6 +2,7 @@ package com.example.cashbook;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,6 +16,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private List<Msg> msgList = new ArrayList<>();
+
+    private List<Choice> choiceList = new ArrayList<>();
 
     private EditText inputText;
 
@@ -51,6 +54,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        initChoices();
+        RecyclerView choiceView = (RecyclerView) findViewById(R.id.choice);
+        GridLayoutManager layoutManager2 = new GridLayoutManager(this, 3);
+        choiceView.setLayoutManager(layoutManager2);
+        ChoiceAdapter choiceAdapter = new ChoiceAdapter(choiceList);
+        choiceView.setAdapter(choiceAdapter);
+    }
+
+    private void initChoices() {
+        for (int i=0; i<20; i++){
+            Choice food = new Choice("Food", R.drawable.timg);
+            choiceList.add(food);
+        }
     }
 
     private void initMsg() {

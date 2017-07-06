@@ -6,12 +6,20 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="actionBarStyle">@style/ActionBar</item>
     </style>
 
     <style name="MyEditText" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorControlNormal"> @color/grey </item>
         <item name="colorControlActivated"> @color/grey </item>
     </style>
-
+    
+    <!--<style name="CustomActionBarTheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">-->
+        <!--<item name="windowActionBarOverlay">true</item>-->
+    <!--</style>-->
+    <style name="ActionBar" parent="Widget.AppCompat.ActionBar.Solid">
+        <item name="background">@drawable/action_bar</item>
+    </style>
 
 </resources>
