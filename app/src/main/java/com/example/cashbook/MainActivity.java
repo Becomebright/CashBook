@@ -7,12 +7,17 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.idescout.sql.SqlScoutServer;
+
+import org.litepal.crud.DataSupport;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,6 +27,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.sql.Date;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +49,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SqlScoutServer.create(this, getPackageName());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        DataSupport.deleteAll(Consumption.class); //test， 用于清空数据库
 
         //  读取丢失输入
         inputText = (EditText) findViewById(R.id.input_text);
@@ -69,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
                     adapter.notifyItemInserted(msgList.size() - 1);
                     msgRecyclerView.scrollToPosition(msgList.size() - 1);
                     inputText.setText("");
+
+                    //储存数据至数据库
+                    saveToDatabase(content);
                 }
             }
         });
@@ -79,6 +93,35 @@ public class MainActivity extends AppCompatActivity {
         choiceView.setLayoutManager(layoutManager2);
         ChoiceAdapter choiceAdapter = new ChoiceAdapter(choiceList, (EditText) findViewById(R.id.input_text));
         choiceView.setAdapter(choiceAdapter);
+    }
+
+    //储存数据至数据库
+    private void saveToDatabase(String content) {
+        String kind = null;
+        double money = 0;
+        java.util.Date currentDate = getCurrentDate();
+        Consumption consumption = new Consumption();
+
+        String[] strs = content.split("\\|");
+        if(strs.length != 2) Log.e("MainActivity", "split wrong");
+        else{
+            kind = strs[0];
+            money = Double.valueOf(strs[1]);
+            consumption.setKind(kind);
+            consumption.setMoney(money);
+            consumption.setDate(currentDate);
+            consumption.saveThrows();
+        }
+    }
+
+    private java.util.Date getCurrentDate() {
+        java.util.Date currentDate = new java.util.Date();
+        /*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString =  formatter.format(currentDate);
+        ParsePosition pos = new ParsePosition(8);
+        Date currentDate_2 = (Date) formatter.parse(dateString, pos);
+        return currentDate_2;*/
+        return currentDate;
     }
 
     //返回储存的输入
@@ -141,28 +184,28 @@ public class MainActivity extends AppCompatActivity {
 
     private void initChoices() {
         //1
-        Choice choice = new Choice("一般", R.drawable.timg);
+        Choice choice = new Choice("General", R.drawable.timg);
         choiceList.add(choice);
         //2
-        choice = new Choice("用餐", R.drawable.timg);
+        choice = new Choice("Food", R.drawable.timg);
         choiceList.add(choice);
         //3
-        choice = new Choice("交通", R.drawable.timg);
+        choice = new Choice("Traffic", R.drawable.timg);
         choiceList.add(choice);
         //4
-        choice = new Choice("水果", R.drawable.timg);
+        choice = new Choice("Fruit", R.drawable.timg);
         choiceList.add(choice);
         //5
-        choice = new Choice("服饰", R.drawable.timg);
+        choice = new Choice("Clothes", R.drawable.timg);
         choiceList.add(choice);
         //6
-        choice = new Choice("日用品", R.drawable.timg);
+        choice = new Choice("Commodity", R.drawable.timg); //日用品
         choiceList.add(choice);
         //7
-        choice = new Choice("娱乐", R.drawable.timg);
+        choice = new Choice("Entertainment", R.drawable.timg);
         choiceList.add(choice);
         //8
-        choice = new Choice("零食", R.drawable.timg);
+        choice = new Choice("Snacks", R.drawable.timg);
         choiceList.add(choice);
     }
 

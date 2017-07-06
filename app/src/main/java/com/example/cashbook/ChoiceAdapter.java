@@ -51,12 +51,12 @@ public class ChoiceAdapter extends RecyclerView.Adapter<ChoiceAdapter.ViewHolder
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 Choice choice = mChoiceList.get(position);
-                input_text.setText(choice.getName()+"   ");
+                input_text.setText(choice.getName()+" | ");
 
                 input_text.requestFocus();//输入框获取焦点
                 input_text.setSelection(input_text.getText().length());
                 InputMethodManager imm = (InputMethodManager)view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(input_text, 0);//是软键盘保持弹出状态
+                imm.showSoftInput(input_text, 0);//使软键盘保持弹出状态
 
                 Toast.makeText(view.getContext(), "You clicked view " + choice.getName(), Toast.LENGTH_SHORT).show();
             }

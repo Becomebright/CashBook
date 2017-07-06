@@ -4,6 +4,6 @@
     <version value = "1"></version>
 
     <list>
-
+        <mapping class = "com.example.cashbook.Consumption"></mapping>
     </list>
 </litepal>

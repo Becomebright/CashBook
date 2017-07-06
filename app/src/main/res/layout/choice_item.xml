@@ -8,19 +8,19 @@
 
     <ImageView
         android:id="@+id/choice_img"
-        android:layout_width="27dp"
-        android:layout_height="27dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_gravity="center"
-        android:layout_marginRight="15dp"
         android:src="@drawable/timg"/>
 
     <TextView
         android:id="@+id/choice_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="16dp"
         android:layout_margin="5dp"
-        android:text="Food"
+        android:maxLines="2"
+        android:text="Entertainment"
         android:textColor="@color/black"/>
 
 </LinearLayout>
