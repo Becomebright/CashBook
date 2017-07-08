@@ -1,7 +1,9 @@
 package com.example.cashbook;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,14 +53,16 @@ public class ChoiceAdapter extends RecyclerView.Adapter<ChoiceAdapter.ViewHolder
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 Choice choice = mChoiceList.get(position);
-                input_text.setText(choice.getName()+" | ");
+                input_text.setText(choice.getName()+"  |  ");
+
+                /*//将imgId传递给MainActivity
+                Intent intent = new Intent(view.getContext(), MainActivity.class);
+                intent.putExtra("imgId", choice.getImageId());*/
 
                 input_text.requestFocus();//输入框获取焦点
                 input_text.setSelection(input_text.getText().length());
                 InputMethodManager imm = (InputMethodManager)view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(input_text, 0);//使软键盘保持弹出状态
-
-                Toast.makeText(view.getContext(), "You clicked view " + choice.getName(), Toast.LENGTH_SHORT).show();
             }
         });
         return holder;

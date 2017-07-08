@@ -1,10 +1,12 @@
 package com.example.cashbook;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * Created by dsz62 on 2017/7/6.
  */
 
-public class Choice {
+public class Choice extends DataSupport {
     private String name;
     private int imageId;
 
@@ -16,5 +18,13 @@ public class Choice {
     }
     public int getImageId() {
         return  this.imageId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 }

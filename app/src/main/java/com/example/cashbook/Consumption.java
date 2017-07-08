@@ -9,9 +9,18 @@ import java.sql.Date;
  */
 
 public class Consumption extends DataSupport {
+    private java.util.Date date;
+    private int imgId;
     private String kind;
     private double money;
-    private java.util.Date date;
+
+    public int getImgId() {
+        return imgId;
+    }
+
+    public void setImgId(int imgId) {
+        this.imgId = imgId;
+    }
 
     public String getKind() {
         return kind;

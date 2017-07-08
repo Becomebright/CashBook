@@ -6,10 +6,11 @@
     android:layout_margin = "10dp"
     >
 
+
     <ImageView
         android:id="@+id/choice_img"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_gravity="center"
         android:src="@drawable/timg"/>
 
@@ -17,10 +18,10 @@
         android:id="@+id/choice_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:layout_margin="5dp"
+        android:textSize="18dp"
+        android:layout_margin="10dp"
         android:maxLines="2"
-        android:text="Entertainment"
+        android:text="用餐"
         android:textColor="@color/black"/>
 
 </LinearLayout>
