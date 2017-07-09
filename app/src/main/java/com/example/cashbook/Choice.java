@@ -19,11 +19,9 @@ public class Choice extends DataSupport {
     public int getImageId() {
         return  this.imageId;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public void setImageId(int imageId) {
         this.imageId = imageId;
     }

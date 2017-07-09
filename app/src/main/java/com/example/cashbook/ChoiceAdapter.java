@@ -17,10 +17,6 @@ import java.util.List;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
-/**
- * Created by dsz62 on 2017/7/6.
- */
-
 public class ChoiceAdapter extends RecyclerView.Adapter<ChoiceAdapter.ViewHolder> {
 
     private List<Choice> mChoiceList;
@@ -54,10 +50,6 @@ public class ChoiceAdapter extends RecyclerView.Adapter<ChoiceAdapter.ViewHolder
                 int position = holder.getAdapterPosition();
                 Choice choice = mChoiceList.get(position);
                 input_text.setText(choice.getName()+"  |  ");
-
-                /*//将imgId传递给MainActivity
-                Intent intent = new Intent(view.getContext(), MainActivity.class);
-                intent.putExtra("imgId", choice.getImageId());*/
 
                 input_text.requestFocus();//输入框获取焦点
                 input_text.setSelection(input_text.getText().length());

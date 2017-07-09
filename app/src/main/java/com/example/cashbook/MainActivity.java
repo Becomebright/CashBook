@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.idescout.sql.SqlScoutServer;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.litepal.crud.DataSupport;
 
@@ -31,15 +33,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private List<Msg> msgList = new ArrayList<>();
-
     private List<Choice> choiceList = new ArrayList<>();
-
     private EditText inputText;
-
     private Button send, history;
-
     private RecyclerView msgRecyclerView;
-
     private MsgAdapter adapter;
 
     @Override
@@ -48,51 +45,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //隐藏ActionBar
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.hide();
-        }
+        hideActionBar(); //隐藏ActionBar
 
-        //查看历史账单
-        history = (Button) findViewById(R.id.title_history);
-        history.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, HistoryBillActivity.class);
-                startActivity(intent);
-            }
-        });
+        reloadMessage(); //  读取丢失输入
 
-        //设置, 还未实现
+//        if(!DataSupport.isExist(Choice.class))
+            initChoices(); //初始化kind选项
 
-        //  读取丢失输入
-        inputText = (EditText) findViewById(R.id.input_text);
-        String input = load();
-        if(!TextUtils.isEmpty(input)){
-            inputText.setText(input);
-            inputText.setSelection(input.length());
-        }
+        loadChoices(); //加载kind选项
 
-        initChoices();
+        initMsg(); //加载消息框
 
-        initMsg();
+        sendButton(); //发送消息
+
+        historyButton(); //查看历史账单
+
+        settingButton(); //设置, 还未实现
+
+        graphButton(); //报表, 还未实现
+
+    }
+
+    private void graphButton() {
+    }
+
+    private void sendButton() {
         send = (Button) findViewById(R.id.send);
-        msgRecyclerView =(RecyclerView) findViewById(R.id.msg_recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        msgRecyclerView.setLayoutManager(layoutManager);
-        adapter = new MsgAdapter(msgList);
-        msgRecyclerView.setAdapter(adapter);
+
         send.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 String content = inputText.getText().toString();
-
-                /*//接收imgId数据
-                Intent intent = getIntent();
-                int imgId = intent.getIntExtra("imgId", -1);
-                Log.e("MainActivity", String.valueOf(imgId));*/
-
                 //储存聊天信息
                 if(!"".equals(content)) {
                     Msg msg = new Msg(content, Msg.TYPE_SENT);
@@ -106,13 +89,36 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
-        loadChoices();
-        RecyclerView choiceView = (RecyclerView) findViewById(R.id.choice);
-        GridLayoutManager layoutManager2 = new GridLayoutManager(this, 3);
-        choiceView.setLayoutManager(layoutManager2);
-        ChoiceAdapter choiceAdapter = new ChoiceAdapter(choiceList, (EditText) findViewById(R.id.input_text));
-        choiceView.setAdapter(choiceAdapter);
+    private void reloadMessage() {
+        inputText = (EditText) findViewById(R.id.input_text);
+        String input = load();
+        if(!TextUtils.isEmpty(input)){
+            inputText.setText(input);
+            inputText.setSelection(input.length());
+        }
+    }
+
+    private void settingButton() {
+    }
+
+    private void historyButton() {
+        history = (Button) findViewById(R.id.title_history);
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, HistoryBillActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void hideActionBar() {
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.hide();
+        }
     }
 
     //储存数据至数据库
@@ -216,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initChoices(){
+        Log.e("initChoices", "initChoices");
         DataSupport.deleteAll(Choice.class);
         //1
         Choice choice = new Choice("一般", R.drawable.general);
@@ -247,10 +254,21 @@ public class MainActivity extends AppCompatActivity {
         //10
         choice = new Choice("医疗", R.drawable.medical);
         choice.save();
+        //11
+        choice = new Choice("住房", R.drawable.housing);
+        choice.save();
+        //12
+        choice = new Choice("通讯", R.drawable.mobile);
+        choice.save();
     }
 
     private void loadChoices() {
         choiceList = DataSupport.findAll(Choice.class);
+        RecyclerView choiceView = (RecyclerView) findViewById(R.id.choice);
+        GridLayoutManager layoutManager2 = new GridLayoutManager(this, 3);
+        choiceView.setLayoutManager(layoutManager2);
+        ChoiceAdapter choiceAdapter = new ChoiceAdapter(choiceList, (EditText) findViewById(R.id.input_text));
+        choiceView.setAdapter(choiceAdapter);
     }
 
     private void initMsg() {
@@ -262,6 +280,11 @@ public class MainActivity extends AppCompatActivity {
         msgList.add(msg3);
         Msg msg4 = new Msg("注意交通安全", Msg.TYPE_RECEIVED);
         msgList.add(msg4);
+        msgRecyclerView =(RecyclerView) findViewById(R.id.msg_recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        msgRecyclerView.setLayoutManager(layoutManager);
+        adapter = new MsgAdapter(msgList);
+        msgRecyclerView.setAdapter(adapter);
     }
 
 }
