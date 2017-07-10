@@ -1,4 +1,4 @@
-package com.example.cashbook;
+package com.example.cashbook.message;
 
 /**
  * Created by dsz62 on 2017/7/5.

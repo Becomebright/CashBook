@@ -13,9 +13,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.cashbook.chart.ChartActivity;
+import com.example.cashbook.choice.Choice;
+import com.example.cashbook.choice.ChoiceAdapter;
+import com.example.cashbook.history_bill.HistoryBillActivity;
+import com.example.cashbook.message.Msg;
+import com.example.cashbook.message.MsgAdapter;
 import com.idescout.sql.SqlScoutServer;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.litepal.crud.DataSupport;
 
@@ -27,6 +31,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,25 +71,91 @@ public class MainActivity extends AppCompatActivity {
 
         graphButton(); //报表, 还未实现
 
-//        test_insertData();
+//        try {
+//            test_insertData();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
-    private void test_insertData() {
-        DataSupport.deleteAll(Consumption.class);
-//        Consumption consumption = new Consumption();
-//        consumption.setDate(new Date(2017, 7, 8));
-//        consumption.setMoney(10);
-//        consumption.setImgId(R.drawable.clothes);
-//        consumption.setKind("服饰");
-//        consumption.save();
-//
-//        consumption = new Consumption();
-//        consumption.setDate(new Date(2017, 7, 9));
-//        consumption.setMoney(20);
-//        consumption.setImgId(R.drawable.learning);
-//        consumption.setKind("学习");
-//        consumption.save();
+    private void test_insertData() throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date;
+
+        DataSupport.deleteAll(Consumption.class); //清空数据库
+
+        Consumption consumption = new Consumption();
+        date = format.parse("2017-07-01");
+        consumption.setDate(date);
+        consumption.setMoney(10);
+        consumption.setImgId(R.drawable.clothes);
+        consumption.setKind("服饰");
+        consumption.save();
+
+        consumption = new Consumption();
+        date = format.parse("2017-07-02");
+        consumption.setDate(date);
+        consumption.setMoney(20);
+        consumption.setImgId(R.drawable.learning);
+        consumption.setKind("学习");
+        consumption.save();
+
+        consumption = new Consumption();
+        date = format.parse("2017-07-03");
+        consumption.setDate(date);
+        consumption.setMoney(18);
+        consumption.setImgId(R.drawable.learning);
+        consumption.setKind("学习");
+        consumption.save();
+
+        consumption = new Consumption();
+        date = format.parse("2017-07-04");
+        consumption.setDate(date);
+        consumption.setMoney(36);
+        consumption.setImgId(R.drawable.learning);
+        consumption.setKind("学习");
+        consumption.save();
+
+        consumption = new Consumption();
+        date = format.parse("2017-07-05");
+        consumption.setDate(date);
+        consumption.setMoney(7.2f);
+        consumption.setImgId(R.drawable.learning);
+        consumption.setKind("学习");
+        consumption.save();
+
+        consumption = new Consumption();
+        date = format.parse("2017-07-06");
+        consumption.setDate(date);
+        consumption.setMoney(50);
+        consumption.setImgId(R.drawable.learning);
+        consumption.setKind("学习");
+        consumption.save();
+
+        consumption = new Consumption();
+        date = format.parse("2017-07-07");
+        consumption.setDate(date);
+        consumption.setMoney(7);
+        consumption.setImgId(R.drawable.learning);
+        consumption.setKind("学习");
+        consumption.save();
+
+        consumption = new Consumption();
+        date = format.parse("2017-07-08");
+        consumption.setDate(date);
+        consumption.setMoney(11);
+        consumption.setImgId(R.drawable.learning);
+        consumption.setKind("学习");
+        consumption.save();
+
+        consumption = new Consumption();
+        date = format.parse("2017-07-09");
+        consumption.setDate(date);
+        consumption.setMoney(30.5f);
+        consumption.setImgId(R.drawable.learning);
+        consumption.setKind("学习");
+        consumption.save();
     }
 
     private void graphButton() {
@@ -154,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
         java.util.Date currentDate = getCurrentDate();
         int imgId;
         String kind;
-        double money;
+        float money;
         Consumption consumption = new Consumption();
 
         String[] strs = content.split("\\|");
@@ -164,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
             List<Choice> choices = DataSupport.where("name = ?", kind).find(Choice.class);
             imgId = choices.get(0).getImageId();
 
-            money = Double.valueOf(strs[1]);
+            money = Float.valueOf(strs[1]);
 
             consumption.setKind(kind);
             consumption.setMoney(money);

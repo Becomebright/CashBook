@@ -3,31 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
-    android:background="@drawable/title_layout">
+    android:background="@drawable/title_layout"
+    >
 
     <Button
-        android:id="@+id/history_backward"
+        android:id="@+id/chart_backward"
         android:layout_width="40dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:background="@drawable/backward"/>
+
     <TextView
+        android:id="@+id/chart_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
         android:gravity="center"
         android:layout_margin="5dp"
-        android:text="History Bill"
-        android:textSize="24sp"
-        />
+        android:text="每日花费"
+        android:textSize="24sp" />
+
     <Button
-        android:id="@+id/history_delete"
-        android:layout_width="32dp"
-        android:layout_height="30dp"
+        android:id="@+id/chart_kind"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:background="@drawable/delete"/>
+        android:background="@drawable/down"/>
 
 </LinearLayout>

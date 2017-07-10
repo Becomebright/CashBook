@@ -1,9 +1,7 @@
-package com.example.cashbook;
+package com.example.cashbook.choice;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +9,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.cashbook.R;
 
 import java.util.List;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class ChoiceAdapter extends RecyclerView.Adapter<ChoiceAdapter.ViewHolder> {
 

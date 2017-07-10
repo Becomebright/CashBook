@@ -1,4 +1,4 @@
-package com.example.cashbook;
+package com.example.cashbook.message;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

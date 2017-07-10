@@ -13,7 +13,7 @@ public class Consumption extends DataSupport {
     private java.util.Date date;
     private int imgId;
     private String kind;
-    private double money;
+    private float money;
 
     public int getImgId() {
         return imgId;
@@ -31,11 +31,11 @@ public class Consumption extends DataSupport {
         this.kind = kind;
     }
 
-    public double getMoney() {
+    public float getMoney() {
         return money;
     }
 
-    public void setMoney(double money) {
+    public void setMoney(float money) {
         this.money = money;
     }
 
@@ -48,7 +48,7 @@ public class Consumption extends DataSupport {
     }
 
     public  String getFormatDate() {
-        SimpleDateFormat sy = new SimpleDateFormat("yyyyMMDD");
+        SimpleDateFormat sy = new SimpleDateFormat("MMdd");
         String dateFormated = sy.format(date);
         return dateFormated;
     }

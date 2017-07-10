@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value = "CashBook" ></dbname>
-    <version value = "3"></version>
+    <version value = "4"></version>
 
     <list>
         <mapping class = "com.example.cashbook.Consumption"></mapping>
-        <mapping class = "com.example.cashbook.Choice"></mapping>
+        <mapping class = "com.example.cashbook.choice.Choice"></mapping>
     </list>
 </litepal>

@@ -1,4 +1,4 @@
-package com.example.cashbook;
+package com.example.cashbook.choice;
 
 import org.litepal.crud.DataSupport;
 
