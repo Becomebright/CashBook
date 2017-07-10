@@ -3,6 +3,7 @@ package com.example.cashbook;
 import org.litepal.crud.DataSupport;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by dsz62 on 2017/7/6.
@@ -44,5 +45,11 @@ public class Consumption extends DataSupport {
 
     public void setDate(java.util.Date date) {
         this.date = date;
+    }
+
+    public  String getFormatDate() {
+        SimpleDateFormat sy = new SimpleDateFormat("yyyyMMDD");
+        String dateFormated = sy.format(date);
+        return dateFormated;
     }
 }

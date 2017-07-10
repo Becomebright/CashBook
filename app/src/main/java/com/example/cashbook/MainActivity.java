@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Msg> msgList = new ArrayList<>();
     private List<Choice> choiceList = new ArrayList<>();
     private EditText inputText;
-    private Button send, history;
+    private Button send, history, graph, setting;
     private RecyclerView msgRecyclerView;
     private MsgAdapter adapter;
 
@@ -64,9 +65,36 @@ public class MainActivity extends AppCompatActivity {
 
         graphButton(); //报表, 还未实现
 
+//        test_insertData();
+
+    }
+
+    private void test_insertData() {
+        DataSupport.deleteAll(Consumption.class);
+//        Consumption consumption = new Consumption();
+//        consumption.setDate(new Date(2017, 7, 8));
+//        consumption.setMoney(10);
+//        consumption.setImgId(R.drawable.clothes);
+//        consumption.setKind("服饰");
+//        consumption.save();
+//
+//        consumption = new Consumption();
+//        consumption.setDate(new Date(2017, 7, 9));
+//        consumption.setMoney(20);
+//        consumption.setImgId(R.drawable.learning);
+//        consumption.setKind("学习");
+//        consumption.save();
     }
 
     private void graphButton() {
+        graph = (Button) findViewById(R.id.title_graph);
+        graph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ChartActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void sendButton() {
@@ -272,11 +300,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initMsg() {
-        Msg msg1 = new Msg("零食 20", Msg.TYPE_SENT);
+        Msg msg1 = new Msg("零食 | 20", Msg.TYPE_SENT);
         msgList.add(msg1);
         Msg msg2 = new Msg("少吃点，记得减肥！", Msg.TYPE_RECEIVED);
         msgList.add(msg2);
-        Msg msg3 = new Msg("交通 20",Msg.TYPE_SENT);
+        Msg msg3 = new Msg("交通 | 20",Msg.TYPE_SENT);
         msgList.add(msg3);
         Msg msg4 = new Msg("注意交通安全", Msg.TYPE_RECEIVED);
         msgList.add(msg4);

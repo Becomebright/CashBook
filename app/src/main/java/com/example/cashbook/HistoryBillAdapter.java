@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 
 public class HistoryBillAdapter extends RecyclerView.Adapter<HistoryBillAdapter.ViewHolder> {
@@ -44,11 +46,12 @@ public class HistoryBillAdapter extends RecyclerView.Adapter<HistoryBillAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         HistoryBill_oneRecord bill = mHistory.get(position);
-        holder.time.setText(bill.getTime().toString());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        holder.time.setText(format.format(bill.getTime())); //yyyy-MM-dd格式
+//        holder.time.setText(bill.getTime().toString()); //标准格式
         holder.kindImg.setImageResource(bill.getImageId());
         holder.kindName.setText(bill.getName());
-        holder.money.setText(Double.toString(bill.getMoney()) + "￥");
-
+        holder.money.setText(String.format(Locale.CHINA, "%.2f", bill.getMoney()) + "￥");
     }
 
     @Override
