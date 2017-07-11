@@ -13,28 +13,36 @@ import android.widget.Toast;
 
 import com.example.cashbook.Consumption;
 import com.example.cashbook.R;
+import com.example.cashbook.choice.Choice;
 import com.example.cashbook.history_bill.HistoryBillActivity;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.DataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.cashbook.R.menu.toolbar;
-
 public class ChartActivity extends AppCompatActivity {
 
     private BarChart barChart;
     private BarDataSet barDataSet;
     private BarData barData;
+
+    private PieChart pieChart;
+    private PieDataSet pieDataSet;
+    private PieData pieData;
 
     private Button back;
 
@@ -43,64 +51,117 @@ public class ChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.chart_toolbar);
-        setSupportActionBar(toolbar);
-
-//        hideActionBar();
+        hideActionBar();
 
         barChart_addData();
         barChart_stylish(); //修改报表格式
 
-//        backButton();
+        pieChart_addData();
+        pieChart_stylish();
+
+        backButton();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar, menu);
-        return true;
+    private void pieChart_stylish() {
+        //设置动画效果
+        pieChart.animateXY(1000, 1300);
+
+        //图表样式
+        pieChart.setDescription(null); //隐藏右下角说明文字
+
+        pieChart.setCenterText("支出概况"); //设置中心文字
+        pieChart.setCenterTextSize(15); //设置中心文字大小
+
+        pieChart.setEntryLabelColor(Color.BLACK); //设置标签文字颜色
+
+        //分区样式
+        pieDataSet.setSliceSpace(3); //设置分区间隔
+
+        int[] colors = {Color.rgb(35,206,250), Color.rgb(127,255,170), Color.rgb(255,255,100),
+                Color.rgb(255,99,71), Color.rgb(128,128,128), Color.rgb(147,112,219)};
+        pieDataSet.setColors(colors); //设置区间颜色
+
+        pieDataSet.setHighlightEnabled(true); //允许高亮
+
+        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE); //设置种类标签位置--内部
+        pieDataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE); //设置数值标签位置--外部
+
+
+        //value数值格式化
+        pieData.setValueFormatter(new PieChartValueFormatter());
+        pieDataSet.setValueTextSize(10); //设置value文字大小
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.toolbar_backward :
-                Toast.makeText(ChartActivity.this, "Backward", Toast.LENGTH_SHORT).show();
-                finish();
-                break;
-            case R.id.toolbar_barChart:
+    private void pieChart_addData() {
+        pieChart = (PieChart) findViewById(R.id.pie_chart);
 
-                break;
-            case R.id.toolbar_pieChart:
-
-                break;
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        List<Choice> choices = DataSupport.findAll(Choice.class);
+        int i = 0;
+        for(Choice choice : choices) {
+            int count = DataSupport
+                    .where("kind = ?", choice.getName())
+                    .count(Consumption.class);
+            if(count==0) continue;
+            entries.add(new PieEntry(DataSupport
+                    .where("kind = ?", choice.getName())
+                    .sum(Consumption.class, "money", float.class)
+                    , choice.getName()));
         }
-        return true;
+        pieDataSet = new PieDataSet(entries, "");
+        pieData = new PieData(pieDataSet);
+        pieChart.setData(pieData);
+        pieChart.invalidate();
     }
-    //    //返回上一界面
-//    private void backButton() {
-//        back = (Button) findViewById(R.id.chart_backward);
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.toolbar, menu);
+//        return true;
+//    }
 //
-//        back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.toolbar_backward :
 //                Toast.makeText(ChartActivity.this, "Backward", Toast.LENGTH_SHORT).show();
 //                finish();
-//            }
-//        });
+//                break;
+//            case R.id.toolbar_barChart:
+//
+//                break;
+//            case R.id.toolbar_pieChart:
+//
+//                break;
+//        }
+//        return true;
 //    }
+
+    //返回上一界面
+    private void backButton() {
+        back = (Button) findViewById(R.id.chart_backward);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(ChartActivity.this, "Backward", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+    }
 
     private void barChart_addData() {
         barChart = (BarChart) findViewById(R.id.bar_chart);
 
         ArrayList<BarEntry> entries = new ArrayList<>();
-        List<Consumption> consumptions = DataSupport.findAll(Consumption.class);
+        List<Consumption> consumptions = DataSupport.order("date asc").find(Consumption.class);
         Consumption consumption = null;
         float money = 0;
         for(int i=0; i<consumptions.size(); ++i) {
             consumption  = consumptions.get(i);
-            Log.e("Time", String.valueOf(consumption.getFormatDate()));
-            Log.e("Kind", consumption.getKind());
-            Log.e("Money", String.valueOf(consumption.getMoney()));
+//            Log.e("Time", String.valueOf(consumption.getFormatDate()));
+//            Log.e("Kind", consumption.getKind());
+//            Log.e("Money", String.valueOf(consumption.getMoney()));
             if(i==0 || consumption.getFormatDate().equals(consumptions.get(i-1).getFormatDate())) {
                 money += consumption.getMoney();
                 continue;
@@ -150,14 +211,12 @@ public class ChartActivity extends AppCompatActivity {
         y.enableGridDashedLine(10f, 10f, 0f);    //背景用虚线表格来绘制  给整成虚线
 
         barChart.getAxisRight().setEnabled(false); //隐藏右边的坐标
-
-
     }
 
-//    private void hideActionBar() {
-//        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-//        if (actionBar != null){
-//            actionBar.hide();
-//        }
-//    }
+    private void hideActionBar() {
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.hide();
+        }
+    }
 }

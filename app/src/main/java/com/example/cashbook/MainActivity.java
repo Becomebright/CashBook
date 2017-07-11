@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         settingButton(); //设置, 还未实现
 
-        graphButton(); //报表, 还未实现
+        graphButton(); //报表
 
 //        try {
 //            test_insertData();
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date;
 
-        DataSupport.deleteAll(Consumption.class); //清空数据库
+//        DataSupport.deleteAll(Consumption.class); //清空数据库
 
         Consumption consumption = new Consumption();
         date = format.parse("2017-07-01");
@@ -120,9 +120,9 @@ public class MainActivity extends AppCompatActivity {
         consumption = new Consumption();
         date = format.parse("2017-07-05");
         consumption.setDate(date);
-        consumption.setMoney(7.2f);
-        consumption.setImgId(R.drawable.learning);
-        consumption.setKind("学习");
+        consumption.setMoney(17.2f);
+        consumption.setImgId(R.drawable.mobile);
+        consumption.setKind("通讯");
         consumption.save();
 
         consumption = new Consumption();
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         consumption = new Consumption();
         date = format.parse("2017-07-07");
         consumption.setDate(date);
-        consumption.setMoney(7);
+        consumption.setMoney(27);
         consumption.setImgId(R.drawable.learning);
         consumption.setKind("学习");
         consumption.save();

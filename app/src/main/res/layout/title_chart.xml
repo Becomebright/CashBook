@@ -18,19 +18,22 @@
         android:id="@+id/chart_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_weight="1"
-        android:gravity="center"
-        android:layout_margin="5dp"
-        android:text="每日花费"
-        android:textSize="24sp" />
-
-    <Button
-        android:id="@+id/chart_kind"
-        android:layout_width="40dp"
-        android:layout_height="25dp"
         android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:background="@drawable/down"/>
+        android:gravity="center"
+        android:text="历史支出报表"
+        android:textSize="24sp" />
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"/>
+
+    <!--<Button-->
+        <!--android:id="@+id/chart_kind"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_margin="5dp"-->
+        <!--android:background="@drawable/down"/>-->
 
 </LinearLayout>
