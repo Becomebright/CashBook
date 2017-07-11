@@ -77,8 +77,15 @@ public class ChartActivity extends AppCompatActivity {
         //分区样式
         pieDataSet.setSliceSpace(3); //设置分区间隔
 
-        int[] colors = {Color.rgb(35,206,250), Color.rgb(127,255,170), Color.rgb(255,255,100),
-                Color.rgb(255,99,71), Color.rgb(128,128,128), Color.rgb(147,112,219)};
+        int[] colors = {
+                Color.rgb(95, 217, 205), Color.rgb(234, 247, 134), Color.rgb(255, 181, 161), Color.rgb(184, 255, 184),
+                Color.rgb(184, 255, 244), Color.rgb(35,206,250), Color.rgb(127,255,170), Color.rgb(255,255,100),
+                Color.rgb(25, 148, 117), Color.rgb(255,99,71), Color.rgb(128,128,128), Color.rgb(147,112,219),
+        };
+//        十二色环
+//        Color.rgb(255, 0, 0), Color.rgb(255, 51, 0), Color.rgb(255, 102, 0), Color.rgb(255, 153, 0),
+//                Color.rgb(255, 255, 0), Color.rgb(153,255,0), Color.rgb(0,255,0), Color.rgb(0,255,255),
+//                Color.rgb(0, 0, 255), Color.rgb(102,0,255), Color.rgb(255,0,255), Color.rgb(255,0,102),
         pieDataSet.setColors(colors); //设置区间颜色
 
         pieDataSet.setHighlightEnabled(true); //允许高亮

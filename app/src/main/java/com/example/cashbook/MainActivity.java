@@ -84,78 +84,102 @@ public class MainActivity extends AppCompatActivity {
         Date date;
 
 //        DataSupport.deleteAll(Consumption.class); //清空数据库
+        if(DataSupport.count(Consumption.class)==0) {
+            Consumption consumption = new Consumption();
+            date = format.parse("2017-07-01");
+            consumption.setDate(date);
+            consumption.setMoney(10);
+            consumption.setImgId(R.drawable.clothes);
+            consumption.setKind("服饰");
+            consumption.save();
 
-        Consumption consumption = new Consumption();
-        date = format.parse("2017-07-01");
-        consumption.setDate(date);
-        consumption.setMoney(10);
-        consumption.setImgId(R.drawable.clothes);
-        consumption.setKind("服饰");
-        consumption.save();
+            consumption = new Consumption();
+            date = format.parse("2017-07-02");
+            consumption.setDate(date);
+            consumption.setMoney(20);
+            consumption.setImgId(R.drawable.housing);
+            consumption.setKind("住房");
+            consumption.save();
 
-        consumption = new Consumption();
-        date = format.parse("2017-07-02");
-        consumption.setDate(date);
-        consumption.setMoney(20);
-        consumption.setImgId(R.drawable.learning);
-        consumption.setKind("学习");
-        consumption.save();
+            consumption = new Consumption();
+            date = format.parse("2017-07-03");
+            consumption.setDate(date);
+            consumption.setMoney(18);
+            consumption.setImgId(R.drawable.commodity);
+            consumption.setKind("日用品");
+            consumption.save();
 
-        consumption = new Consumption();
-        date = format.parse("2017-07-03");
-        consumption.setDate(date);
-        consumption.setMoney(18);
-        consumption.setImgId(R.drawable.learning);
-        consumption.setKind("学习");
-        consumption.save();
+            consumption = new Consumption();
+            date = format.parse("2017-07-04");
+            consumption.setDate(date);
+            consumption.setMoney(36);
+            consumption.setImgId(R.drawable.learning);
+            consumption.setKind("学习");
+            consumption.save();
 
-        consumption = new Consumption();
-        date = format.parse("2017-07-04");
-        consumption.setDate(date);
-        consumption.setMoney(36);
-        consumption.setImgId(R.drawable.learning);
-        consumption.setKind("学习");
-        consumption.save();
+            consumption = new Consumption();
+            date = format.parse("2017-07-05");
+            consumption.setDate(date);
+            consumption.setMoney(17.2f);
+            consumption.setImgId(R.drawable.mobile);
+            consumption.setKind("通讯");
+            consumption.save();
 
-        consumption = new Consumption();
-        date = format.parse("2017-07-05");
-        consumption.setDate(date);
-        consumption.setMoney(17.2f);
-        consumption.setImgId(R.drawable.mobile);
-        consumption.setKind("通讯");
-        consumption.save();
+            consumption = new Consumption();
+            date = format.parse("2017-07-06");
+            consumption.setDate(date);
+            consumption.setMoney(50);
+            consumption.setImgId(R.drawable.entertainment);
+            consumption.setKind("娱乐");
+            consumption.save();
 
-        consumption = new Consumption();
-        date = format.parse("2017-07-06");
-        consumption.setDate(date);
-        consumption.setMoney(50);
-        consumption.setImgId(R.drawable.learning);
-        consumption.setKind("学习");
-        consumption.save();
+            consumption = new Consumption();
+            date = format.parse("2017-07-07");
+            consumption.setDate(date);
+            consumption.setMoney(27);
+            consumption.setImgId(R.drawable.food);
+            consumption.setKind("用餐");
+            consumption.save();
 
-        consumption = new Consumption();
-        date = format.parse("2017-07-07");
-        consumption.setDate(date);
-        consumption.setMoney(27);
-        consumption.setImgId(R.drawable.learning);
-        consumption.setKind("学习");
-        consumption.save();
+            consumption = new Consumption();
+            date = format.parse("2017-07-08");
+            consumption.setDate(date);
+            consumption.setMoney(11);
+            consumption.setImgId(R.drawable.fruit);
+            consumption.setKind("水果");
+            consumption.save();
 
-        consumption = new Consumption();
-        date = format.parse("2017-07-08");
-        consumption.setDate(date);
-        consumption.setMoney(11);
-        consumption.setImgId(R.drawable.learning);
-        consumption.setKind("学习");
-        consumption.save();
+            consumption = new Consumption();
+            date = format.parse("2017-07-09");
+            consumption.setDate(date);
+            consumption.setMoney(30.5f);
+            consumption.setImgId(R.drawable.traffic);
+            consumption.setKind("交通");
+            consumption.save();
+            consumption = new Consumption();
+            date = format.parse("2017-07-10");
+            consumption.setDate(date);
+            consumption.setMoney(30.5f);
+            consumption.setImgId(R.drawable.snacks);
+            consumption.setKind("零食");
+            consumption.save();
 
-        consumption = new Consumption();
-        date = format.parse("2017-07-09");
-        consumption.setDate(date);
-        consumption.setMoney(30.5f);
-        consumption.setImgId(R.drawable.learning);
-        consumption.setKind("学习");
-        consumption.save();
+            consumption = new Consumption();
+            date = format.parse("2017-07-11");
+            consumption.setDate(date);
+            consumption.setMoney(30.5f);
+            consumption.setImgId(R.drawable.general);
+            consumption.setKind("一般");
+            consumption.save();
+
+            consumption = new Consumption();
+            date = format.parse("2017-07-12");
+            consumption.setDate(date);
+            consumption.setMoney(30.5f);
+            consumption.setImgId(R.drawable.medical);
+            consumption.setKind("医疗");
+            consumption.save();
+        }
     }
 
     private void graphButton() {

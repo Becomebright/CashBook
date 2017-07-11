@@ -6,10 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.cashbook.Consumption;
@@ -42,6 +40,9 @@ public class HistoryBillActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new HistoryBillAdapter(billList);
         recyclerView.setAdapter(adapter);
+
+        //这句就是添加我们自定义的分隔线
+        recyclerView.addItemDecoration(new RecyclerViewDecoration(this, RecyclerViewDecoration.VERTICAL_LIST));
 
         delete = (Button) findViewById(R.id.history_delete);
         backward = (Button) findViewById(R.id.history_backward);
