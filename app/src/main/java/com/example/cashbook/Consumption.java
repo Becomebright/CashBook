@@ -10,10 +10,15 @@ import java.text.SimpleDateFormat;
  */
 
 public class Consumption extends DataSupport {
+    private  int id;
     private java.util.Date date;
     private int imgId;
     private String kind;
     private float money;
+
+    public int getId() {
+        return id;
+    }
 
     public int getImgId() {
         return imgId;

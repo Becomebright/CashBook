@@ -6,12 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.cashbook.Consumption;
 import com.example.cashbook.R;
+import com.example.cashbook.SwipeItemLayout;
 
 import org.litepal.crud.DataSupport;
 
@@ -20,9 +23,9 @@ import java.util.List;
 
 public class HistoryBillActivity extends AppCompatActivity {
 
-    private List<HistoryBill_oneRecord> billList = new ArrayList<>();
+    private Button delete, backward, deleteOne;
 
-    private Button delete, backward;
+    private List<HistoryBill_oneRecord> billList = new ArrayList<>();
 
     private HistoryBillAdapter adapter;
 
@@ -42,6 +45,9 @@ public class HistoryBillActivity extends AppCompatActivity {
 
         delete = (Button) findViewById(R.id.history_delete);
         backward = (Button) findViewById(R.id.history_backward);
+
+        //调用左划删除
+        recyclerView.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
 
         deleteAllButton();//用于清空数据库
 
@@ -71,6 +77,7 @@ public class HistoryBillActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         DataSupport.deleteAll(Consumption.class);
 
+                        //刷新recyclerview显示
                         billList.clear();
                         adapter.notifyDataSetChanged();
 
@@ -95,11 +102,10 @@ public class HistoryBillActivity extends AppCompatActivity {
         }
     }
 
-    //从数据库中读取数据，初始化billList
-    private void initBills() {
+    private void initBills(){
         List<Consumption> consumptionList = DataSupport.findAll(Consumption.class);
         for(Consumption consumption : consumptionList){
-            HistoryBill_oneRecord bill = new HistoryBill_oneRecord(consumption.getDate(),
+            HistoryBill_oneRecord bill = new HistoryBill_oneRecord(consumption.getId(), consumption.getDate(),
                     consumption.getImgId(), consumption.getKind(), consumption.getMoney());
             billList.add(bill);
         }

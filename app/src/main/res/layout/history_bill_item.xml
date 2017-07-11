@@ -1,61 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.cashbook.SwipeItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="35dp"
     android:layout_margin="5dp">
 
-    <TextView
-        android:id="@+id/bill_time"
-        android:layout_width="0dp"
-        android:layout_weight="1.4"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="2017-12-12"
-        android:layout_gravity="center"
-        android:textSize="13dp"
-        android:gravity="center"
-        android:maxLines="1"/>
-
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content">
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/bill_time"
+            android:layout_width="0dp"
+            android:layout_weight="1.4"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="2017-12-12"
+            android:layout_gravity="center"
+            android:textSize="13dp"
+            android:gravity="center"
+            android:maxLines="1"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/bill_img"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="30dp"
-            />
+            <ImageView
+                android:id="@+id/bill_img"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="30dp"
+                />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/bill_kind"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:text="用餐"
+            android:textSize="18dp"
+            android:maxLines="1"/>
+        <TextView
+            android:id="@+id/bill_money"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:text="23.45"
+            android:textSize="18dp"
+            android:gravity="left"
+            android:maxLines="1"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/deleteOne"
+            android:text="删除"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:background="@drawable/btn_delete"
+            android:layout_width="100dp"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/bill_kind"
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="center"
-        android:text="用餐"
-        android:textSize="18dp"
-
-        android:maxLines="1"/>
-
-    <TextView
-        android:id="@+id/bill_money"
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="center"
-        android:text="23.45"
-        android:textSize="18dp"
-        android:gravity="left"
-        android:maxLines="1"/>
-
-
-
-
-</LinearLayout>
+</com.example.cashbook.SwipeItemLayout>
