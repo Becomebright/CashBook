@@ -19,6 +19,7 @@ import com.example.cashbook.choice.ChoiceAdapter;
 import com.example.cashbook.history_bill.HistoryBillActivity;
 import com.example.cashbook.message.Msg;
 import com.example.cashbook.message.MsgAdapter;
+import com.example.cashbook.message.ReceiveMsg;
 import com.idescout.sql.SqlScoutServer;
 
 import org.litepal.crud.DataSupport;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView msgRecyclerView;
     private MsgAdapter adapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SqlScoutServer.create(this, getPackageName());
@@ -61,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
         loadChoices(); //加载kind选项
 
-        initMsg(); //加载消息框
+        initView(); //加载消息框
+
+        initMsg(); //预设对话
 
         sendButton(); //发送消息
 
@@ -71,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
 
         graphButton(); //报表
 
-//        try {
-//            test_insertData();
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            test_insertData();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -202,14 +206,20 @@ public class MainActivity extends AppCompatActivity {
                 String content = inputText.getText().toString();
                 //储存聊天信息
                 if(!"".equals(content)) {
+                    //发送消息
                     Msg msg = new Msg(content, Msg.TYPE_SENT);
                     msgList.add(msg);
                     adapter.notifyItemInserted(msgList.size() - 1);
                     msgRecyclerView.scrollToPosition(msgList.size() - 1);
                     inputText.setText("");
-
                     //储存数据至数据库
-                    saveToDatabase(content);
+                    Consumption consumption = saveToDatabase(content);
+
+                    //自动接收消息, 还未实现
+                    ReceiveMsg receiveMsg = new ReceiveMsg(consumption.getKind(), consumption.getMoney(), Msg.TYPE_RECEIVED);
+                    msgList.add(receiveMsg);
+                    adapter.notifyItemInserted(msgList.size() - 1);
+                    msgRecyclerView.scrollToPosition(msgList.size() - 1);
                 }
             }
         });
@@ -246,7 +256,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //储存数据至数据库
-    private void saveToDatabase(String content) {
+    //拆分输入的消息，得到consumption的五种属性，并通过引用返回一个Consumption，以决定自动回复的内容
+    private Consumption saveToDatabase(String content) {
         java.util.Date currentDate = getCurrentDate();
         int imgId;
         String kind;
@@ -268,6 +279,7 @@ public class MainActivity extends AppCompatActivity {
             consumption.setImgId(imgId);
             consumption.saveThrows();
         }
+        return consumption;
     }
 
     private String getString_without_space(String str) {
@@ -395,6 +407,14 @@ public class MainActivity extends AppCompatActivity {
         choiceView.setAdapter(choiceAdapter);
     }
 
+    private void initView() {
+        msgRecyclerView =(RecyclerView) findViewById(R.id.msg_recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        msgRecyclerView.setLayoutManager(layoutManager);
+        adapter = new MsgAdapter(msgList);
+        msgRecyclerView.setAdapter(adapter);
+    }
+
     private void initMsg() {
         Msg msg1 = new Msg("零食 | 20", Msg.TYPE_SENT);
         msgList.add(msg1);
@@ -404,11 +424,6 @@ public class MainActivity extends AppCompatActivity {
         msgList.add(msg3);
         Msg msg4 = new Msg("注意交通安全", Msg.TYPE_RECEIVED);
         msgList.add(msg4);
-        msgRecyclerView =(RecyclerView) findViewById(R.id.msg_recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        msgRecyclerView.setLayoutManager(layoutManager);
-        adapter = new MsgAdapter(msgList);
-        msgRecyclerView.setAdapter(adapter);
     }
 
 }

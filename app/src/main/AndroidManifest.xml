@@ -15,6 +15,7 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <uses-library android:name="android.test.runner" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,5 +25,8 @@
         <activity android:name=".history_bill.HistoryBillActivity" />
         <activity android:name=".chart.ChartActivity"/>
     </application>
+
+    <instrumentation android:name="android.test.InstrumentationTestRunner" android:label="ceshi" android:targetPackage="com.example.androidchat" >
+    </instrumentation>
 
 </manifest>

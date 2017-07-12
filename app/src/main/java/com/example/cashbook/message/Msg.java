@@ -9,9 +9,11 @@ public class Msg {
 
     public static final int TYPE_SENT = 1;
 
-    private String content;
+    protected String content;
 
-    private  int type;
+    protected   int type;
+
+    public Msg(){}
 
     public Msg(String content, int type){
         this.content = content; this.type = type;

@@ -9,12 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cashbook.R;
+import com.example.cashbook.TuLingRobot.Message;
 
 import java.util.List;
-
-/**
- * Created by dsz62 on 2017/7/5.
- */
 
 public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
 
@@ -71,4 +68,13 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
     public int getItemCount() {
         return mMsgList.size();
     }
+
+//    @Override
+//    public int getItemViewType(int position) {
+//        Msg message = mMsgList.get(position);
+//        if (message.getType() == Msg.TYPE_RECEIVED) {
+//             return 0;// 如果消息类型为接收，则值为0
+//        }
+//        return 1;// 如果消息类型为发送，则值为1
+//    }
 }
