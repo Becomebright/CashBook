@@ -265,7 +265,10 @@ public class MainActivity extends AppCompatActivity {
         Consumption consumption = new Consumption();
 
         String[] strs = content.split("\\|");
-        if(strs.length != 2) Log.e("MainActivity", "split wrong");
+        if(strs.length != 2) {
+            Log.e("MainActivity", "split wrong");
+            consumption.setKind("Exception");
+        }
         else{
             kind = getString_without_space(strs[0]);
             List<Choice> choices = DataSupport.where("name = ?", kind).find(Choice.class);
