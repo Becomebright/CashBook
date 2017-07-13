@@ -67,6 +67,8 @@ public class ChartActivity extends AppCompatActivity {
         pieChart.animateXY(1000, 1300);
 
         //图表样式
+        pieChart.setNoDataText("未添加数据");
+
         pieChart.setDescription(null); //隐藏右下角说明文字
 
         pieChart.setCenterText("支出概况"); //设置中心文字
@@ -74,13 +76,14 @@ public class ChartActivity extends AppCompatActivity {
 
         pieChart.setEntryLabelColor(Color.BLACK); //设置标签文字颜色
 
+
         //分区样式
         pieDataSet.setSliceSpace(3); //设置分区间隔
 
         int[] colors = {
-                Color.rgb(95, 217, 205), Color.rgb(234, 247, 134), Color.rgb(255, 181, 161), Color.rgb(184, 255, 184),
-                Color.rgb(184, 255, 244), Color.rgb(35,206,250), Color.rgb(127,255,170), Color.rgb(255,255,100),
-                Color.rgb(25, 148, 117), Color.rgb(255,99,71), Color.rgb(128,128,128), Color.rgb(147,112,219),
+                Color.rgb(255,145,145), Color.rgb(255,190,140), Color.rgb(255,215,125), Color.rgb(255,245,107),
+                Color.rgb(250,255,170), Color.rgb(220,255,100), Color.rgb(166,255,172), Color.rgb(178,242,230),
+                Color.rgb(162,145,255), Color.rgb(231,158,255), Color.rgb(252,189,232), Color.rgb(255,153,175),
         };
 //        十二色环
 //        Color.rgb(255, 0, 0), Color.rgb(255, 51, 0), Color.rgb(255, 102, 0), Color.rgb(255, 153, 0),
@@ -121,29 +124,6 @@ public class ChartActivity extends AppCompatActivity {
         pieChart.invalidate();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.toolbar, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.toolbar_backward :
-//                Toast.makeText(ChartActivity.this, "Backward", Toast.LENGTH_SHORT).show();
-//                finish();
-//                break;
-//            case R.id.toolbar_barChart:
-//
-//                break;
-//            case R.id.toolbar_pieChart:
-//
-//                break;
-//        }
-//        return true;
-//    }
-
     //返回上一界面
     private void backButton() {
         back = (Button) findViewById(R.id.chart_backward);
@@ -182,7 +162,7 @@ public class ChartActivity extends AppCompatActivity {
             entries.add(new BarEntry(Float.valueOf(consumption.getFormatDate()), money));
         }
 
-        barDataSet = new BarDataSet(entries, "花销");
+        barDataSet = new BarDataSet(entries, "每日花销");
         barData = new BarData(barDataSet);
         barChart.setData(barData);
         barChart.invalidate();
@@ -194,6 +174,7 @@ public class ChartActivity extends AppCompatActivity {
         barChart.animateX(1000, Easing.EasingOption.EaseInQuad);
 
         //设置图表样式
+        barChart.setNoDataText("未添加数据");
 //        barChart.setDrawBorders(true); //边框
 //        barChart.setDoubleTapToZoomEnabled(false); //不允许缩放
 //        barChart.setMaxVisibleValueCount(7); //设置一页最大条数
@@ -203,10 +184,12 @@ public class ChartActivity extends AppCompatActivity {
 
         //显示数值
         barData.setValueFormatter(new ValueFormatter());
+        barData.setValueTextSize(8);
+        barChart.setDrawValueAboveBar(true); //设置数值显示在图标上方
 
         //横坐标
         XAxis x = barChart.getXAxis();
-        x.setLabelCount(7, false); //设置标签个数
+        x.setLabelCount(7); //设置标签个数
         x.setValueFormatter(new XAxisValueFormatter());
         x.setPosition(XAxis.XAxisPosition.BOTTOM);
         x.setGranularity(1f); //缩放的时候有用，比如放大的时候，我不想把横轴的月份再细分

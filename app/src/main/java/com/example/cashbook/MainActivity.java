@@ -38,6 +38,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.example.cashbook.R.string.app_name;
+
 public class MainActivity extends AppCompatActivity {
 
     private List<Msg> msgList = new ArrayList<>();
@@ -71,15 +73,14 @@ public class MainActivity extends AppCompatActivity {
 
         historyButton(); //查看历史账单
 
-        settingButton(); //设置, 还未实现
-
         graphButton(); //报表
 
-        try {
-            test_insertData();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//        最后要注释掉下边这些
+//        try {
+//            test_insertData();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
@@ -234,8 +235,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void settingButton() {
-    }
+//    private void settingButton() {
+//    }
 
     private void historyButton() {
         history = (Button) findViewById(R.id.title_history);
@@ -419,14 +420,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initMsg() {
-        Msg msg1 = new Msg("零食 | 20", Msg.TYPE_SENT);
+        Msg msg1 = new Msg("欢迎使用 " + this.getString(R.string.app_name) + " !", Msg.TYPE_RECEIVED);
         msgList.add(msg1);
-        Msg msg2 = new Msg("少吃点，记得减肥！", Msg.TYPE_RECEIVED);
+        Msg msg2 = new Msg("选择一项种类，输入价格，点击发送，即可完成一笔记账", Msg.TYPE_RECEIVED);
         msgList.add(msg2);
-        Msg msg3 = new Msg("交通 | 20",Msg.TYPE_SENT);
+        Msg msg3 = new Msg("右上角是历史账单和报表按钮",Msg.TYPE_RECEIVED);
         msgList.add(msg3);
-        Msg msg4 = new Msg("注意交通安全", Msg.TYPE_RECEIVED);
-        msgList.add(msg4);
     }
 
 }

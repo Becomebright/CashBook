@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cashbook.R;
-import com.example.cashbook.TuLingRobot.Message;
 
 import java.util.List;
 

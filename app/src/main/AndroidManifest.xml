@@ -7,6 +7,11 @@
     <!-- Include following permission if you want to cache images on SD card -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:label="ceshi"
+        android:targetPackage="com.example.androidchat"></instrumentation>
+
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -16,17 +21,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <uses-library android:name="android.test.runner" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".history_bill.HistoryBillActivity" />
-        <activity android:name=".chart.ChartActivity"/>
+        <activity android:name=".chart.ChartActivity" />
+        <activity android:name=".setting.Setting"></activity>
     </application>
-
-    <instrumentation android:name="android.test.InstrumentationTestRunner" android:label="ceshi" android:targetPackage="com.example.androidchat" >
-    </instrumentation>
 
 </manifest>
